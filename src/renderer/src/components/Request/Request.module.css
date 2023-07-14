@@ -1,0 +1,16 @@
+.request_wrapper {
+  display: flex;
+}
+
+.request_form {
+  width: 100%;
+  display: flex;
+}
+
+.request_input {
+  width: 100%;
+}
+
+.request_input input {
+  border-radius: 0;
+}
