@@ -1,7 +1,7 @@
 import { Button, Select, TextInput } from '@mantine/core'
 import styles from './Request.module.css'
 import { makeApiRequest } from '@renderer/api/apiClient'
-import { useStore } from '@renderer/app/store'
+import { useAppStore } from '@renderer/app/appStore'
 
 const methods = [
   { value: 'get', label: 'GET' },
@@ -10,7 +10,7 @@ const methods = [
 ]
 
 export default function Request(): JSX.Element {
-  const { url, setUrl, method, setMethod, setResponse, requestData } = useStore((state) => state)
+  const { url, setUrl, method, setMethod, setResponse, requestData } = useAppStore((state) => state)
 
   const handleRequest = async (e: any) => {
     e.preventDefault()

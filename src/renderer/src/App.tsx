@@ -1,12 +1,11 @@
-import Request from './components/Request/Request'
-import TabData from './components/Tab/TabData'
+import { Box } from '@mantine/core'
+import Main from './components/Main/Main'
 
 function App(): JSX.Element {
   return (
-    <div>
-      <Request />
-      <TabData />
-    </div>
+    <Box>
+      <Main />
+    </Box>
   )
 }
 

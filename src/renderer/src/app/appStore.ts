@@ -15,7 +15,7 @@ type Action = {
   setRequestData: (requestData: State['requestData']) => void
 }
 
-export const useStore = create<State & Action>((set) => ({
+export const useAppStore = create<State & Action>((set) => ({
   url: '',
   method: 'GET',
   requestData: '',
