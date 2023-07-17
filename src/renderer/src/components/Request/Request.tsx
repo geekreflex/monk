@@ -1,5 +1,6 @@
 import { Button, Select, TextInput } from '@mantine/core'
 import styles from './Request.module.css'
+import { useState } from 'react'
 
 const methods = [
   { value: 'get', label: 'GET' },
@@ -8,6 +9,9 @@ const methods = [
 ]
 
 export default function Request(): JSX.Element {
+  const [] = useState()
+  const [] = useState()
+
   return (
     <div className={styles.request_wrapper}>
       <Select defaultValue="get" data={methods} searchable radius={0} />
