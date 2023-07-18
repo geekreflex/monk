@@ -6,7 +6,9 @@ import { useAppStore } from '@renderer/app/appStore'
 const methods = [
   { value: 'get', label: 'GET' },
   { value: 'post', label: 'POST' },
-  { value: 'put', label: 'PUT' }
+  { value: 'put', label: 'PUT' },
+  { value: 'patch', label: 'PATCH' },
+  { value: 'delete', label: 'DELETE' }
 ]
 
 export default function Request(): JSX.Element {
@@ -30,6 +32,7 @@ export default function Request(): JSX.Element {
         <form className={styles.request_form}>
           <TextInput
             className={styles.request_input}
+            placeholder="https://example.com"
             radius={0}
             value={url}
             onChange={(e) => setUrl(e.target.value)}

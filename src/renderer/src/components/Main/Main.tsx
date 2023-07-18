@@ -6,8 +6,10 @@ import TabData from '../TabData/TabData'
 export default function Main() {
   return (
     <Box>
-      <Request />
-      <TabData />
+      <Box>
+        <Request />
+        <TabData />
+      </Box>
       <Response />
     </Box>
   )
