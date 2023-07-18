@@ -14,13 +14,15 @@ const apiClient = axios.create({
 export const makeApiRequest = async (
   method: string,
   url: string,
-  data?: any
+  data?: any,
+  params?: any
 ): Promise<ApiResponse> => {
   try {
     const response: AxiosResponse<ApiResponse> = await apiClient.request({
       method,
       url,
-      data
+      data,
+      params
     })
 
     return response.data

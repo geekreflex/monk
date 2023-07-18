@@ -2,6 +2,8 @@ import { Button, Select, TextInput } from '@mantine/core'
 import styles from './Request.module.css'
 import { makeApiRequest } from '@renderer/api/apiClient'
 import { useAppStore } from '@renderer/app/appStore'
+import { useEffect } from 'react'
+import qs from 'qs'
 
 const methods = [
   { value: 'get', label: 'GET' },
@@ -11,18 +13,29 @@ const methods = [
   { value: 'delete', label: 'DELETE' }
 ]
 
-export default function Request(): JSX.Element {
-  const { url, setUrl, method, setMethod, setResponse, requestData } = useAppStore((state) => state)
+export default function Request() {
+  const { url, setUrl, method, setMethod, setResponse, requestData, params } = useAppStore(
+    (state) => state
+  )
+
+  useEffect(() => {
+    const data = params?.reduce((params, { key, value }) => {
+      if (key !== '' && value !== '') {
+        params[key] = value
+      }
+      return params
+    }, {})
+    const queryString = qs.stringify(data)
+    const baseUrl = url.split('?')[0]
+    setUrl(`${baseUrl}?${queryString}`)
+  }, [params])
 
   const handleRequest = async (e: any) => {
     e.preventDefault()
     try {
-      console.log(url, method, requestData)
       const response = await makeApiRequest(method, url, requestData)
       setResponse(response)
-    } catch (error) {
-      console.error('Error')
-    }
+    } catch (error) {}
   }
 
   return (
