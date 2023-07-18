@@ -20,14 +20,15 @@ export default function Request() {
 
   useEffect(() => {
     const data = params?.reduce((params, { key, value }) => {
-      if (key !== '' && value !== '') {
+      if (key !== '') {
         params[key] = value
       }
       return params
     }, {})
-    const queryString = qs.stringify(data)
+    const queryString = qs.stringify(data, { encode: false, arrayFormat: 'repeat' })
     const baseUrl = url.split('?')[0]
-    setUrl(`${baseUrl}?${queryString}`)
+    const newUrl = baseUrl || queryString ? `${baseUrl}?${queryString}` : ''
+    setUrl(newUrl)
   }, [params])
 
   const handleRequest = async (e: any) => {
