@@ -2,8 +2,8 @@ import { Button, Select, TextInput } from '@mantine/core'
 import styles from './Request.module.css'
 import { makeApiRequest } from '@renderer/api/apiClient'
 import { useAppStore } from '@renderer/app/appStore'
-import { useEffect } from 'react'
-import qs from 'qs'
+import { useEffect, useState } from 'react'
+import { converArrayToQueryString } from '@renderer/utils/query'
 
 const methods = [
   { value: 'get', label: 'GET' },
@@ -14,27 +14,22 @@ const methods = [
 ]
 
 export default function Request() {
+  const [queryString, setQueryString] = useState('')
   const { url, setUrl, method, setMethod, setResponse, requestData, params } = useAppStore(
     (state) => state
   )
 
   useEffect(() => {
-    const data = params?.reduce((params, { key, value }) => {
-      if (key !== '') {
-        params[key] = value
-      }
-      return params
-    }, {})
-    const queryString = qs.stringify(data, { encode: false, arrayFormat: 'repeat' })
-    const baseUrl = url.split('?')[0]
-    const newUrl = baseUrl || queryString ? `${baseUrl}?${queryString}` : ''
-    setUrl(newUrl)
+    const newUrl = url.split('?')[0]
+    const qs = converArrayToQueryString(params!)
+    setQueryString(qs)
+    setUrl(`${newUrl}?${qs}`)
   }, [params])
 
   const handleRequest = async (e: any) => {
     e.preventDefault()
     try {
-      const response = await makeApiRequest(method, url, requestData)
+      const response = await makeApiRequest(method, url, requestData, queryString)
       setResponse(response)
     } catch (error) {}
   }
